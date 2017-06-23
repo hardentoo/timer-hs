@@ -25,16 +25,13 @@ data Config = Config { timeValue   :: Int
 
 configFrom :: [String] -> Config
 configFrom xs = let
-        _timeType    = if has    ["-s", "--seconds"] then Second else Minute
-        _isHelp      = has       ["-h", "--help"]
-        _isVersion   = has       ["-v", "--version"]
-        _isPlaySound = not $ has ["-n", "--no-sound"]
+        _timeType = if has ["-s", "--seconds"] then Second else Minute
     in Config
         { timeValue   = getTimeValue xs _timeType
         , timeType    = _timeType
-        , isHelp      = _isHelp
-        , isVersion   = _isVersion
-        , isPlaySound = _isPlaySound
+        , isHelp      = has       ["-h", "--help"]
+        , isVersion   = has       ["-v", "--version"]
+        , isPlaySound = not $ has ["-n", "--no-sound"]
         , soundPath   = "/home/tux/.local/bin/timer_sound/sound1.ogg"
         }
     where has ys = isFlagSet ys xs
