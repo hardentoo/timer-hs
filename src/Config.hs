@@ -8,6 +8,7 @@ module Config
 import Data.List(isPrefixOf)
 import Data.Char(isDigit)
 import Data.Maybe(fromMaybe)
+import Control.Monad(mfilter)
 -- TODO
 -- configFrom() should support '--file' flag
 
@@ -38,29 +39,28 @@ configFrom xs = let
 
 getTimeValue :: [String] -> TimeType -> Int
 getTimeValue xs tt = let
-    n = charToInt 0 . getItem 0 . filter (\x -> not $ isPrefixOf "-" x) $ xs
+    n = toInt 0 . getItem 0 . filter (\x -> not $ isPrefixOf "-" x) $ xs
     in if tt == Minute then n * 60 else n
 
 getItem :: Int -> [a] -> Maybe a
 getItem n xs
     | n < 0 || length xs == 0 = Nothing
-    | (length xs) -1  < n     = Nothing
+    | (length xs) -1 < n      = Nothing
     | otherwise               = Just $ xs !! n
 
-charToInt :: Int -> Maybe String -> Int
-charToInt fallback m = fromMaybe fallback $ do
-    s <- m
-    if all isDigit s then Just $ read s else Nothing
+toInt :: Int -> Maybe String -> Int
+toInt fallback (Just []) = fallback
+toInt fallback m = fromMaybe fallback $ read <$> mfilter (all isDigit) m
 
 isFlagSet :: Flags -> [String] -> Bool
 isFlagSet xs = any $ \x -> elem x xs
 
 configFake :: Config
 configFake = Config
-    { timeValue = 2
-    , timeType = Second
-    , isHelp = False
-    , isVersion = False
+    { timeValue   = 2
+    , timeType    = Second
+    , isHelp      = False
+    , isVersion   = False
     , isPlaySound = True
-    , soundPath = "/home/tux/.local/bin/timer_sound/sound1.ogg"
+    , soundPath   = "/home/tux/.local/bin/timer_sound/sound1.ogg"
     }
