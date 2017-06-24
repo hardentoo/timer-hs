@@ -1,9 +1,16 @@
+# timer-rs - a Haskell learning project
+
+Small personal project to document Haskell & Stack usage.
+
 # Haskell & IDE Setup
 
 ## Install Stack
 
 On Ubuntu:  
 `sudo apt install haskell-stack`
+
+On openSUSE:  
+`sudo zypper install stack`
 
 ## Setup project and dependencies
 
