@@ -33,7 +33,7 @@ configFrom xs = let
         , isHelp      = has       ["-h", "--help"]
         , isVersion   = has       ["-v", "--version"]
         , isPlaySound = not $ has ["-n", "--no-sound"]
-        , soundPath   = "/home/tux/.local/bin/timer_sound/sound1.ogg"
+        , soundPath   = "~/.local/bin/timer_sound/sound1.ogg"
         }
     where has ys = isFlagSet ys xs
 
@@ -62,5 +62,5 @@ configFake = Config
     , isHelp      = False
     , isVersion   = False
     , isPlaySound = True
-    , soundPath   = "/home/tux/.local/bin/timer_sound/sound1.ogg"
+    , soundPath   = "~/.local/bin/timer_sound/sound1.ogg"
     }
