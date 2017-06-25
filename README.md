@@ -1,4 +1,4 @@
-# timer-rs - a Haskell learning project
+# timer-hs - a Haskell learning project
 
 Small personal project to document Haskell & Stack usage.
 

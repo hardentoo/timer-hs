@@ -12,16 +12,15 @@ run cfg =
     else if get isVersion then showVersion
     else do
         waitAndNotify (get timeValue) (get timeType)
-        if get isPlaySound then playSound (get soundPath) else mempty
+        if get isPlaySound then playSound $ get soundPath else mempty
     where get f = f cfg
 
 waitAndNotify :: Seconds -> TimeType -> IO ()
 waitAndNotify n tt = do
     threadDelay $ 1000000 * n
-    let p   = if tt == Second then n else (n `div` 60)
-        msg = show p ++ " " ++ (timeTypeToName tt n) ++ " passed"
-    showMessage msg
-    showNotification msg
+    let p   = if tt == Second then n else n `div` 60
+        msg = show p ++ " " ++ timeTypeToName tt n ++ " passed"
+    showMessage msg >> showNotification msg
 
 timeTypeToName :: TimeType -> Seconds -> String
 timeTypeToName tt n = case tt of

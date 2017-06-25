@@ -8,7 +8,7 @@ module Config
 import Data.List(isPrefixOf)
 import Data.Char(isDigit)
 import Data.Maybe(fromMaybe)
-import Control.Monad(mfilter)
+import Control.Monad(mfilter, guard)
 -- TODO
 -- configFrom() should support '--file' flag
 
@@ -35,25 +35,25 @@ configFrom xs = let
         , isPlaySound = not $ has ["-n", "--no-sound"]
         , soundPath   = "~/.local/bin/timer_sound/sound1.ogg"
         }
-    where has ys = isFlagSet ys xs
+    where has = flip isFlagSet xs
 
 getTimeValue :: [String] -> TimeType -> Int
 getTimeValue xs tt = let
-    n = toInt 0 . getItem 0 . filter (\x -> not $ isPrefixOf "-" x) $ xs
+    n = toInt 0 . getItem 0 . filter (not . isPrefixOf "-") $ xs
     in if tt == Minute then n * 60 else n
 
 getItem :: Int -> [a] -> Maybe a
-getItem n xs
-    | n < 0 || length xs == 0 = Nothing
-    | (length xs) -1 < n      = Nothing
-    | otherwise               = Just $ xs !! n
+getItem n xs = do
+    let len = length xs
+    guard(n < 0 || len == 0 || len -1 < n)
+    pure $ xs !! n
 
 toInt :: Int -> Maybe String -> Int
 toInt fallback (Just []) = fallback
 toInt fallback m = fromMaybe fallback $ read <$> mfilter (all isDigit) m
 
 isFlagSet :: Flags -> [String] -> Bool
-isFlagSet xs = any $ \x -> elem x xs
+isFlagSet = any . flip elem
 
 configFake :: Config
 configFake = Config
