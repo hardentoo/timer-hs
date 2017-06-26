@@ -60,3 +60,14 @@ Returns among other things: `sequence :: Monad m => [m a] -> m [a]`
 | `:i something`            | print info about something           |
 | `:m +Control.Applicative` | load the Control.Applicative library |
 | `:t variable`             | show type of variable                |
+
+
+# Media
+
+| Title                                                     | Type  |
+------------------------------------------------------------|--------
+| [Effectful Haskell: Reader, Transformers, Typeclasses][1] | Text  |
+| [Wrangling Monad Transformer Stacks][2]                   | Video |
+
+[1]: https://slpopejoy.github.io/posts/Effectful02.html
+[2]: https://www.youtube.com/watch?v=8t8fjkISjus
