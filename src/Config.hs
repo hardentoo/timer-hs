@@ -45,7 +45,7 @@ getTimeValue xs tt = let
 getItem :: Int -> [a] -> Maybe a
 getItem n xs = do
     let len = length xs
-    guard(n < 0 || len == 0 || len -1 < n)
+    guard(n >= 0 && len > 0 && n <= len -1)
     pure $ xs !! n
 
 toInt :: Int -> Maybe String -> Int
