@@ -9,6 +9,7 @@ module View
 import Usage
 import qualified Command as CMD
 
+
 showUsage :: IO ()
 showUsage = usage
 

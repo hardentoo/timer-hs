@@ -3,6 +3,10 @@ module Usage
     , version
     ) where
 
+import qualified Paths_timer_hs as P (version)
+import qualified Data.Version as V (showVersion)
+
+
 usage :: IO ()
 usage = putStrLn "Usage of timer-hs: \n\n\
         \  timer-hs [time]\n\n\
@@ -16,4 +20,4 @@ usage = putStrLn "Usage of timer-hs: \n\n\
 -- \      --verbose   Print verbose application status\n
 
 version :: IO ()
-version = putStrLn "timer-hs 0.0.1"
+version = putStrLn $ "timer-hs  "++ V.showVersion P.version

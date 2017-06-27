@@ -8,6 +8,7 @@ import System.Process
 
 type Message = String
 
+
 notify :: Message -> IO ()
 notify msg = callProcess "notify-send" ["TIMER", msg]
 

@@ -6,6 +6,7 @@ import Control.Concurrent(threadDelay)
 
 type Seconds = Int
 
+
 run :: Config -> IO ()
 run cfg =
     if      get isHelp    then showUsage
