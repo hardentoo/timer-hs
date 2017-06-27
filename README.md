@@ -64,10 +64,12 @@ Returns among other things: `sequence :: Monad m => [m a] -> m [a]`
 
 # Media
 
-| Title                                                     | Type  |
-------------------------------------------------------------|--------
-| [Effectful Haskell: Reader, Transformers, Typeclasses][1] | Text  |
-| [Wrangling Monad Transformer Stacks][2]                   | Video |
+| Title                                                         | Type  |
+----------------------------------------------------------------|--------
+| [Effectful Haskell: Reader, Transformers, Typeclasses][1]     | Text  |
+| [Wrangling Monad Transformer Stacks][2]                       | Video |
+| [Behavior-driven development (BDD) in Haskell with Hspec ][3] | Text  |
 
 [1]: https://slpopejoy.github.io/posts/Effectful02.html
 [2]: https://www.youtube.com/watch?v=8t8fjkISjus
+[3]: https://www.stackbuilders.com/tutorials/haskell/bdd-in-haskell-with-hspec
