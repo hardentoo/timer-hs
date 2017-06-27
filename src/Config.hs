@@ -25,11 +25,12 @@ data Config = Config { timeValue   :: Int
                      } deriving (Show)
 
 configFrom :: [String] -> Config
+configFrom [] = Config 0 Second True False False ""
 configFrom xs = let
-        _timeType = if has ["-s", "--seconds"] then Second else Minute
+    tt = if has ["-s", "--seconds"] then Second else Minute
     in Config
-        { timeValue   = getTimeValue xs _timeType
-        , timeType    = _timeType
+        { timeValue   = getTimeValue xs tt
+        , timeType    = tt
         , isHelp      = has       ["-h", "--help"]
         , isVersion   = has       ["-v", "--version"]
         , isPlaySound = not $ has ["-n", "--no-sound"]
