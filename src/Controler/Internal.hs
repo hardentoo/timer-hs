@@ -9,6 +9,7 @@ import View
 
 type Seconds = Int
 
+
 waitAndNotify :: Seconds -> TimeType -> IO ()
 waitAndNotify n tt = do
     threadDelay $ 1000000 * n
