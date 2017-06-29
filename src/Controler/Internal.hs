@@ -4,6 +4,7 @@ module Controler.Internal
     ( MonadControler(..)
     , runMonadControler
     , timeTypeToName
+    , timeTypeToName'
     , waitAndNotify
     ) where
 
@@ -20,13 +21,16 @@ newtype MonadControler a = MonadControler {
 runMonadControler :: MonadControler a -> Config -> IO a
 runMonadControler m cfg = runReaderT (toReaderT m) cfg
 
-timeTypeToName :: (MonadReader Config m) => m String
+timeTypeToName :: MonadReader Config m => m String
 timeTypeToName = do
     tt <- reader timeType
     n  <- reader timeValue
-    pure $ case tt of
-        Minute -> if n == 60 then "minute" else "minutes"
-        Second -> if n == 1  then "second" else "seconds"
+    timeTypeToName' tt n
+
+timeTypeToName' :: Monad m => TimeType -> Int -> m String
+timeTypeToName' tt n = pure $ case tt of
+    Minute -> if n == 60 then "minute" else "minutes"
+    Second -> if n == 1  then "second" else "seconds"
 
 waitAndNotify :: MonadControler ()
 waitAndNotify = do
