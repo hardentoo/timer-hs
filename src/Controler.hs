@@ -1,5 +1,9 @@
 {-# LANGUAGE FlexibleContexts #-}
-module Controler(run) where
+module Controler
+    ( run
+    , MonadControler(..)
+    , runMonadControler
+    ) where
 
 import Control.Monad.Reader
 import Controler.Internal
@@ -7,7 +11,7 @@ import Config
 import View
 
 
-run :: (MonadReader Config m, MonadIO m) => m ()
+run :: MonadControler ()
 run = do
     help    <- reader isHelp
     version <- reader isVersion

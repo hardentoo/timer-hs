@@ -1,13 +1,12 @@
 module Main where
 
 import System.Environment(getArgs)
-import Control.Monad.Reader(runReaderT)
 import Controler
 import Config
 
 
 main :: IO ()
-main = getArgs >>= runReaderT run . configFrom
+main = getArgs >>= runMonadControler run . configFrom
 
 configFake :: Config
 configFake = Config

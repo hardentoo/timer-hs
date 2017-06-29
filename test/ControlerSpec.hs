@@ -1,7 +1,4 @@
-module ControlerSpec
-    ( main
-    , spec
-    ) where
+module ControlerSpec(main, spec) where
 
 import Test.Hspec
 import Control.Monad.Reader(runReaderT)
