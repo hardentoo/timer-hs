@@ -1,15 +1,20 @@
+{-# LANGUAGE FlexibleContexts #-}
 module Controler(run) where
 
+import Control.Monad.Reader
+import Controler.Internal
 import Config
 import View
-import Controler.Internal
 
 
-run :: Config -> IO ()
-run cfg =
-    if      get isHelp    then showUsage
-    else if get isVersion then showVersion
+run :: (MonadReader Config m, MonadIO m) => m ()
+run = do
+    help    <- reader isHelp
+    version <- reader isVersion
+    if      help    then liftIO $ showUsage
+    else if version then liftIO $ showVersion
     else do
-        waitAndNotify (get timeValue) (get timeType)
-        if get isPlaySound then playSound $ get soundPath else mempty
-    where get f = f cfg
+        waitAndNotify
+        _isPlaySound <- reader isPlaySound
+        _soundPath   <- reader soundPath
+        if _isPlaySound then liftIO $ playSound _soundPath else pure mempty

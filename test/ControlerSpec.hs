@@ -4,7 +4,8 @@ module ControlerSpec
     ) where
 
 import Test.Hspec
-import Config(TimeType(..))
+import Control.Monad.Reader(runReaderT)
+import Config(Config(..), TimeType(..))
 import Controler
 import Controler.Internal
 
@@ -12,14 +13,17 @@ import Controler.Internal
 main :: IO ()
 main = hspec spec
 
+runT :: TimeType -> Int -> [String]
+runT tt n = runReaderT timeTypeToName $ Config n tt False False False ""
+
 spec :: Spec
 spec = do
     describe "timeTypeToName" $ do
         it "second" $ do
-            timeTypeToName Second 1 `shouldBe` "second"
+            runT Second 1 `shouldBe` ["second"]
         it "seconds" $ do
-            timeTypeToName Second 2 `shouldBe` "seconds"
+            runT Second 2 `shouldBe` ["seconds"]
         it "minute" $ do
-            timeTypeToName Minute 60 `shouldBe` "minute"
+            runT Minute 60 `shouldBe` ["minute"]
         it "minutes" $ do
-            timeTypeToName Minute 180 `shouldBe` "minutes"
+            runT Minute 180 `shouldBe` ["minutes"]
