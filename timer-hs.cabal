@@ -21,6 +21,7 @@ library
                      , View
                      , Command
                      , Controler
+                     , Controler.Internal
   build-depends:       base >= 4.7 && < 5
                      , process
   other-modules:       Paths_timer_hs
